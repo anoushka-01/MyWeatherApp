@@ -1,4 +1,4 @@
-package com.example.myapp.domain
+package com.example.myapp.domain.weather
 
 import androidx.annotation.DrawableRes
 import com.example.myapp.R
