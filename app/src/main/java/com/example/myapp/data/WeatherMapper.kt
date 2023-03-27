@@ -1,4 +1,4 @@
-package com.example.myapp.data.mappers
+package com.example.myapp.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -19,7 +19,6 @@ private data class IndexedData(
 @RequiresApi(Build.VERSION_CODES.O)
 fun WeatherDataDto.toWeatherMap(): Map<Int, List<WeatherData>> {
     return time.mapIndexed { index, time ->
-        // takes all the data
         val temperature = temperatures[index]
         val weatherCode = weatherCodes[index]
         val windSpeed = windSpeeds[index]
