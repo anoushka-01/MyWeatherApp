@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import com.example.myapp.data.remote.WeatherDataDto
 import com.example.myapp.data.remote.WeatherDto
 import com.example.myapp.domain.weather.WeatherData
-import com.example.myapp.domain.weather.WeatherInfo
+import com.example.myapp.domain.weather.WeatherDetails
 import com.example.myapp.domain.weather.WeatherType
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -48,7 +48,7 @@ fun WeatherDataDto.toWeatherMap(): Map<Int, List<WeatherData>> {
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun WeatherDto.toWeatherInfo(): WeatherInfo {
+fun WeatherDto.toWeatherInfo(): WeatherDetails {
     val weatherDataMap = weatherData.toWeatherMap()
     val now = LocalDateTime.now()
     // find the weather data for the current hour at the time of request
@@ -58,7 +58,7 @@ fun WeatherDto.toWeatherInfo(): WeatherInfo {
         val hour = if(now.minute < 30) now.hour else now.hour + 1
         it.time.hour == hour
     }
-    return WeatherInfo(
+    return WeatherDetails(
         weatherDataPerDay = weatherDataMap,
         currentWeatherData = currentWeatherData
     )
