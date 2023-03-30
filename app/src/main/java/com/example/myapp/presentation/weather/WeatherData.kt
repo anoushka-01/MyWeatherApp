@@ -49,8 +49,12 @@ fun WeatherData(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row() {
+                    Image(
+                        painter = painterResource(R.drawable.ic_outline_location_on_24),
+                        contentDescription = "location icon"
+                    )
                     Text(
-                        text = "Today",
+                        text = "Your Location",
                         color = Color.Black,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium,
@@ -58,7 +62,7 @@ fun WeatherData(
                     Spacer(modifier = Modifier.weight(1f))
                     // display current time using api result
                     Text(
-                        text = data.time.format(DateTimeFormatter.ofPattern("HH:mm")),
+                        text = ("Today, ${data.time.format(DateTimeFormatter.ofPattern("HH:mm"))}"),
                         color = Color.Black,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium,

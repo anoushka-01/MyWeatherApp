@@ -7,33 +7,18 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.myapp.R
+import com.example.myapp.presentation.weather.WeatherDataForWeek
 import com.example.myapp.ui.theme.MyAppTheme
 import dagger.hilt.android.AndroidEntryPoint
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -66,8 +51,21 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .background(colorResource(R.color.navy_blue))
                     ){
+                        Spacer(modifier = Modifier.height(3.dp))
+                        Searchbar(weatherViewModel.state)
                         WeatherData(state = weatherViewModel.state, backgroundColor = colorResource(R.color.light_blue))
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(colorResource(R.color.navy_blue))
+                                .verticalScroll(rememberScrollState())
+                        ){
+                            WeatherDataForToday(state = weatherViewModel.state)
+                            WeatherDataForWeek(state = weatherViewModel.state)
+                        }
+
                     }
+
                 }
             }
         }

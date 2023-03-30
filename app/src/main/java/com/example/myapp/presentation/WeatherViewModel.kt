@@ -29,7 +29,8 @@ class WeatherViewModel @Inject constructor(
             // if location is not null, then use it to make a call to the API
             if(location.getLocation() != null) {
                 when (val result =
-                    weatherRepository.getWeather(location.getLocation()!!.latitude, location.getLocation()!!.longitude)) {
+                    weatherRepository.getWeather(location.getLocation()!!.latitude, location.getLocation()!!.longitude))
+                {
                     // if api call successful
                     is ApiResponse.Success -> state =
                         state.copy(weatherDetails = result.data, isLoading = false, error = null)
@@ -45,6 +46,27 @@ class WeatherViewModel @Inject constructor(
             // if location is null, show error state
             else{
                 state.copy(isLoading = false, error = "Unable to find location")
+            }
+        }
+    }
+
+    fun showWeatherForLocation(latitude: Double, longitude: Double) {
+        viewModelScope.launch {
+            state = state.copy( isLoading = true, error = null )
+
+            // make a call to the API for the selected location
+            when (val result =
+                weatherRepository.getWeather(latitude, longitude))
+            {
+                // if api call successful
+                is ApiResponse.Success -> state =
+                    state.copy(weatherDetails = result.data, isLoading = false, error = null)
+                // if api call unsuccessful
+                is ApiResponse.Error -> state = state.copy(
+                    weatherDetails = null,
+                    isLoading = false,
+                    error = result.message
+                )
             }
         }
     }
