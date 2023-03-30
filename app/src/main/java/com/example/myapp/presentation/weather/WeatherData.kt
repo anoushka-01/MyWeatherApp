@@ -26,12 +26,11 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun WeatherData(
     state: WeatherState,
-    backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
     state.weatherDetails?.currentWeatherData?.let { data ->
         Card(
-            backgroundColor = backgroundColor,
+            backgroundColor = colorResource(R.color.light_blue),
             shape = RoundedCornerShape(15.dp),
             modifier = modifier
                 .padding(10.dp, 15.dp)

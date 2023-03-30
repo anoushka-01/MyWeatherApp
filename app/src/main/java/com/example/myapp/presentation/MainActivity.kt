@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     ){
                         Spacer(modifier = Modifier.height(3.dp))
                         Searchbar(weatherViewModel.state)
-                        WeatherData(state = weatherViewModel.state, backgroundColor = colorResource(R.color.light_blue))
+                        WeatherData(state = weatherViewModel.state)
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -62,6 +62,7 @@ class MainActivity : ComponentActivity() {
                         ){
                             WeatherDataForToday(state = weatherViewModel.state)
                             WeatherDataForWeek(state = weatherViewModel.state)
+                            Spacer(modifier = Modifier.height(20.dp))
                         }
 
                     }
