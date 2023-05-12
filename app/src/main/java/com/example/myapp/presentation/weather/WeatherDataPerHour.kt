@@ -1,4 +1,4 @@
-package com.example.myapp.presentation
+package com.example.myapp.presentation.weather
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

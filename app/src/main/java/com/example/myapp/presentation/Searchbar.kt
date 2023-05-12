@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.example.myapp.R
@@ -36,13 +37,12 @@ import javax.inject.Inject
 
 @Composable
 fun Searchbar(
-    state: WeatherState,
-    modifier: Modifier = Modifier
+    viewModel: WeatherViewModel,
 ){
     val contextForToast = LocalContext.current
 
     var open by remember{ mutableStateOf(false) }
-    val locations = listOf("London", "Edinburgh", "New York")
+    val locations = listOf("My Location", "London", "Edinburgh", "New York")
     var selectedLocation by remember{ mutableStateOf("") }
     var searchSize by remember{ mutableStateOf(Size.Zero) }
 
@@ -76,8 +76,7 @@ fun Searchbar(
                 .onGloballyPositioned { coordinates ->
                     searchSize = coordinates.size.toSize()
                 },
-//            trailingIcon = {Icon(icon, "", Modifier.clickable { open = !open } )}
-            trailingIcon = {Icon(icon, "", Modifier.clickable { open = !open }, tint = Color.White ) }
+            trailingIcon = {Icon(icon, "", Modifier.clickable { open = !open }, tint = colorResource(R.color.light_blue) ) }
         )
 
         DropdownMenu(
@@ -92,7 +91,12 @@ fun Searchbar(
                     Toast
                         .makeText(contextForToast, "$label selected", Toast.LENGTH_SHORT)
                         .show()
-//                    getLocationInfo(label)
+                    if(label == "My Location"){
+                        viewModel.showWeatherDetails()
+                    }
+                    else{
+                        viewModel.showWeatherForLocation(GetChosenLocationInfo(label).latitude, GetChosenLocationInfo(label).longitude)
+                    }
                     selectedLocation = label
                     open = false
                 }){
@@ -107,11 +111,13 @@ fun Searchbar(
 }
 
 
-fun getLocationInfo(label: String){
-    Log.d("abcd", "$label")
-    GetChosenLocationInfo(label)
 
-}
+
+//fun getLocationInfo(label: String){
+//    Log.d("abcd", "$label")
+//    GetChosenLocationInfo(label)
+//
+//}
 
 
 

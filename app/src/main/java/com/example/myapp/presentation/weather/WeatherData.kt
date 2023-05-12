@@ -1,4 +1,4 @@
-package com.example.myapp.presentation
+package com.example.myapp.presentation.weather
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -19,8 +19,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.myapp.R
+import com.example.myapp.presentation.WeatherState
+import com.example.myapp.presentation.component.BlackText
+import com.example.myapp.presentation.component.DarkGrayText
+import com.example.myapp.presentation.component.LargeBlackText
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -52,20 +55,12 @@ fun WeatherData(
                         painter = painterResource(R.drawable.ic_outline_location_on_24),
                         contentDescription = "location icon"
                     )
-                    Text(
-                        text = "Your Location",
-                        color = Color.Black,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium,
-                    )
+
+                    BlackText("-")
                     Spacer(modifier = Modifier.weight(1f))
                     // display current time using api result
-                    Text(
-                        text = ("Today, ${data.time.format(DateTimeFormatter.ofPattern("HH:mm"))}"),
-                        color = Color.Black,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium,
-                    )
+                    BlackText("Today, ${data.time.format(DateTimeFormatter.ofPattern("HH:mm"))}")
+
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 Row(
@@ -81,19 +76,9 @@ fun WeatherData(
                             modifier = Modifier.width(180.dp)
                         )
                         Spacer(modifier = Modifier.height(3.dp))
-                        Text(
-                            text = "${data.temperatureCelsius}°C",
-                            fontSize = 60.sp,
-                            color = Color.Black,
-                            fontWeight = FontWeight.Medium
-                        )
+                        LargeBlackText("${data.temperatureCelsius}°C")
                         Spacer(modifier = Modifier.height(1.dp))
-                        Text(
-                            text = data.weatherType.weatherDescription,
-                            fontSize = 20.sp,
-                            color = Color.DarkGray,
-                            fontWeight = FontWeight.Medium
-                        )
+                        DarkGrayText(data.weatherType.weatherDescription)
                     }
                     Spacer(modifier = Modifier.weight(1f))
                     Column() {

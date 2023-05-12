@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.myapp.R
+import com.example.myapp.presentation.weather.WeatherData
+import com.example.myapp.presentation.weather.WeatherDataForToday
 import com.example.myapp.presentation.weather.WeatherDataForWeek
 import com.example.myapp.ui.theme.MyAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +54,8 @@ class MainActivity : ComponentActivity() {
                             .background(colorResource(R.color.navy_blue))
                     ){
                         Spacer(modifier = Modifier.height(3.dp))
-                        Searchbar(weatherViewModel.state)
+//                        Searchbar()
+                        Searchbar(viewModel = weatherViewModel)
                         WeatherData(state = weatherViewModel.state)
                         Column(
                             modifier = Modifier
